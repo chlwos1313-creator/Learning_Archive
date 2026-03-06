@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>기본 정보 수정 - 금융 포트폴리오</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Navigation Bar (F303) -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary-gradient shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Finfolio</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-toggle="target=" #navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">기본 정보 수정</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="portfolio.html">포트폴리오 수정</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5 mb-5">
+    <div class="row g-4">
+      <!-- 프로필 & 자기소개 (F301) -->
+      <div class="col-md-4 col-12 d-flex flex-column align-items-center">
+        <div class="glass-card text-center w-100 h-100 p-4">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=200&h=200"
+            alt="프로필 사진" class="profile-img mb-3">
+          <h5 class="fw-bold mb-1">김싸피</h5>
+          <p class="text-muted small mb-3">Premium Member</p>
+
+          <form class="w-100 mt-3 text-start">
+            <label for="bio" class="form-label fw-semibold">자기소개</label>
+            <textarea class="form-control mb-3 custom-input" id="bio" rows="4" placeholder="자신을 소개해주세요."></textarea>
+            <button type="button" class="btn btn-primary w-100 fw-bold shadow-sm">소개 업데이트</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- 투자 성향 & 기본 정보 수정 -->
+      <div class="col-md-8 col-12 d-flex flex-column gap-4">
+
+        <!-- 투자 성향 (F301) -->
+        <div class="glass-card p-4">
+          <h4 class="fw-bold mb-4 border-bottom pb-2">투자 성향</h4>
+          <form>
+            <div class="mb-4">
+              <label class="form-label fw-semibold d-block">투자 상품 선호도 (중복 선택)</label>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="pref1" value="주식">
+                <label class="form-check-label" for="pref1">주식</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="pref2" value="채권">
+                <label class="form-check-label" for="pref2">채권</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="pref3" value="부동산">
+                <label class="form-check-label" for="pref3">부동산</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="pref4" value="암호화폐">
+                <label class="form-check-label" for="pref4">암호화폐</label>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold d-block">투자 스타일 (단일 선택)</label>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="styleOptions" id="style1" value="공격투자형">
+                <label class="form-check-label" for="style1">공격투자형</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="styleOptions" id="style2" value="위험중립형" checked>
+                <label class="form-check-label" for="style2">위험중립형</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="styleOptions" id="style3" value="안정추구형">
+                <label class="form-check-label" for="style3">안정추구형</label>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold d-block">관심 종목 (중복 선택)</label>
+              <div class="form-check form-check-inline mt-1">
+                <input class="form-check-input" type="checkbox" id="inter1" value="IT/Tech">
+                <label class="form-check-label" for="inter1">IT/Tech</label>
+              </div>
+              <div class="form-check form-check-inline mt-1">
+                <input class="form-check-input" type="checkbox" id="inter2" value="바이오">
+                <label class="form-check-label" for="inter2">바이오</label>
+              </div>
+              <div class="form-check form-check-inline mt-1">
+                <input class="form-check-input" type="checkbox" id="inter3" value="친환경">
+                <label class="form-check-label" for="inter3">친환경</label>
+              </div>
+              <div class="form-check form-check-inline mt-1">
+                <input class="form-check-input" type="checkbox" id="inter4" value="금융">
+                <label class="form-check-label" for="inter4">금융</label>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- 회원 정보 출력 및 수정 (F302) -->
+        <div class="glass-card p-4">
+          <h4 class="fw-bold mb-4 border-bottom pb-2">회원 기본 정보</h4>
+          <form>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="memberId" class="form-label fw-semibold">회원 번호</label>
+                <input type="text" class="form-control custom-input" id="memberId" value="10293847" readonly disabled>
+              </div>
+              <div class="col-md-6 mt-3 mt-md-0">
+                <label for="accountId" class="form-label fw-semibold">ID</label>
+                <input type="text" class="form-control custom-input" id="accountId" value="ssafy_investor" readonly>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="email" class="form-label fw-semibold">Email</label>
+                <input type="email" class="form-control custom-input" id="email" value="user@example.com" required>
+              </div>
+              <div class="col-md-6 mt-3 mt-md-0">
+                <label for="nickname" class="form-label fw-semibold">Nickname</label>
+                <input type="text" class="form-control custom-input" id="nickname" value="김싸피" required>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-4">
+                <label for="age" class="form-label fw-semibold">나이</label>
+                <input type="number" class="form-control custom-input" id="age" value="28" min="0" max="150" required>
+              </div>
+              <div class="col-md-4 mt-3 mt-md-0">
+                <label for="salary" class="form-label fw-semibold">연봉 (만원)</label>
+                <input type="number" class="form-control custom-input" id="salary" value="5000" min="0" required>
+              </div>
+              <div class="col-md-4 mt-3 mt-md-0">
+                <label for="assets" class="form-label fw-semibold">자산 (만원)</label>
+                <input type="number" class="form-control custom-input" id="assets" value="15000" min="0" required>
+              </div>
+            </div>
+            <div class="text-end">
+              <button type="submit" class="btn btn-success fw-bold px-4 shadow-sm">정보 저장</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

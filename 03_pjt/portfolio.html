@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>포트폴리오 수정 - 금융 포트폴리오</title>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Navigation Bar (F303) -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary-gradient shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Finfolio</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-toggle="target=" #navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">기본 정보 수정</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="portfolio.html">포트폴리오 수정</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5 mb-5 d-flex justify-content-center">
+    <!-- 포트폴리오 수정 정보 (F304) -->
+    <div class="glass-card p-4 col-md-8 col-12">
+      <div class="text-center mb-4">
+        <h3 class="fw-bold">금융 포트폴리오 수정</h3>
+        <p class="text-muted">귀하의 금융 성향과 선호 은행 정보를 관리합니다.</p>
+      </div>
+
+      <form>
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="memberId" class="form-label fw-semibold">회원 번호 (Readonly)</label>
+            <input type="text" class="form-control custom-input bg-light" id="memberId" value="10293847" readonly
+              disabled>
+          </div>
+          <div class="col-md-6 mt-3 mt-md-0">
+            <label for="accountId" class="form-label fw-semibold">ID (Readonly)</label>
+            <input type="text" class="form-control custom-input bg-light" id="accountId" value="ssafy_investor"
+              readonly>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-semibold d-block">저축 성향 (단일 선택)</label>
+          <div class="p-3 border rounded bg-white">
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="radio" name="saveStyle" id="save1" value="도전형">
+              <label class="form-check-label" for="save1">
+                <strong>도전형</strong> - 고위험 고수익을 추구하며 적극적인 재테크를 선호합니다.
+              </label>
+            </div>
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="radio" name="saveStyle" id="save2" value="검소형" checked>
+              <label class="form-check-label" for="save2">
+                <strong>검소형</strong> - 불필요한 지출을 줄이고 꾸준히 자산을 모으는 것을 선호합니다.
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="saveStyle" id="save3" value="알뜰형">
+              <label class="form-check-label" for="save3">
+                <strong>알뜰형</strong> - 합리적인 소비와 리워드 혜택 등 실속을 챙기는 것을 선호합니다.
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="favBank" class="form-label fw-semibold">최애 은행</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text bg-white border-end-0"><i class="text-primary">🏦</i></span>
+            <input type="text" class="form-control custom-input border-start-0" id="favBank"
+              placeholder="선호하는 은행을 입력하세요" value="싸피은행">
+            <button class="btn btn-primary fw-bold" type="button" id="updateBankBtn">Update</button>
+          </div>
+          <small class="form-text text-muted">주로 거래하시는 주거래 은행을 입력해주세요.</small>
+        </div>
+
+        <div class="text-end border-top pt-4 mt-2">
+          <button type="submit" class="btn btn-success fw-bold px-5 shadow-sm">포트폴리오 저장</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

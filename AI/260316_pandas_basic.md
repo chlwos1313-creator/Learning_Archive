@@ -1,5 +1,6 @@
 # Pandas 핵심 요약 (Data Analysis TIL)
 
+
 ## 1. Pandas 개요 및 설치
 Pandas는 파이썬에서 표 형태의 데이터(Structured Data)를 다루기 위한 가장 강력한 라이브러리입니다.
 

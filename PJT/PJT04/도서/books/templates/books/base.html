@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}도서 관리 시스템{% endblock %}</title>
+  <style>
+    /* ── Reset & Base ───────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    /* ── Navigation ─────────────────────────────────────── */
+    nav {
+      background: #2c3e50;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    nav a {
+      color: #ecf0f1;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #3498db; }
+    nav .brand { font-size: 1.2rem; color: #3498db; margin-right: auto; }
+
+    /* ── Container ──────────────────────────────────────── */
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── Card ───────────────────────────────────────────── */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Typography ─────────────────────────────────────── */
+    h1 { font-size: 1.8rem; margin-bottom: 1.2rem; color: #2c3e50; }
+    h2 { font-size: 1.4rem; margin-bottom: 1rem; color: #2c3e50; }
+
+    /* ── Form ───────────────────────────────────────────── */
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: .4rem; }
+    .form-control {
+      width: 100%;
+      padding: .6rem .9rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color .2s;
+    }
+    .form-control:focus { outline: none; border-color: #3498db; }
+
+    /* ── Buttons ────────────────────────────────────────── */
+    .btn {
+      display: inline-block;
+      padding: .6rem 1.4rem;
+      border: none;
+      border-radius: 6px;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+    .btn:hover { opacity: .85; }
+    .btn-primary   { background: #3498db; color: #fff; }
+    .btn-success   { background: #27ae60; color: #fff; }
+    .btn-warning   { background: #f39c12; color: #fff; }
+    .btn-danger    { background: #e74c3c; color: #fff; }
+    .btn-secondary { background: #95a5a6; color: #fff; }
+
+    /* ── Table ──────────────────────────────────────────── */
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: .75rem 1rem; text-align: left; border-bottom: 1px solid #eee; }
+    th { background: #f8f9fa; font-weight: 700; color: #555; }
+    tr:hover td { background: #f0f7ff; }
+
+    /* ── Detail / Info ──────────────────────────────────── */
+    .info-label { font-weight: 700; color: #555; margin-bottom: .3rem; }
+    .info-value { margin-bottom: 1.2rem; line-height: 1.7; }
+    .ai-badge {
+      display: inline-block;
+      background: #8e44ad;
+      color: #fff;
+      font-size: .75rem;
+      padding: .2rem .6rem;
+      border-radius: 999px;
+      margin-left: .5rem;
+      vertical-align: middle;
+    }
+    .action-row { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .empty-msg { text-align: center; color: #aaa; padding: 2rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="{% url 'books:index' %}">📚 도서 관리</a>
+  <a href="{% url 'books:index' %}">전체 목록</a>
+  <a href="{% url 'books:create' %}">+ 도서 등록</a>
+</nav>
+
+<div class="container">
+  {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

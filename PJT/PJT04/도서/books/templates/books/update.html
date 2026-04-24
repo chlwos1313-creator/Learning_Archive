@@ -1,0 +1,32 @@
+{% extends 'books/base.html' %}
+
+{% block title %}{{ book.title }} - 수정{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1>✏️ 도서 수정</h1>
+  <p style="color:#888;margin-bottom:1.5rem;">수정 시에는 AI 저자 정보가 재생성되지 않습니다.</p>
+
+  <form method="POST" action="{% url 'books:update' book.pk %}">
+    {% csrf_token %}
+
+    {% for field in form %}
+    <div class="form-group">
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {% if field.errors %}
+        {% for error in field.errors %}
+          <p style="color:#e74c3c;font-size:.88rem;margin-top:.3rem;">⚠ {{ error }}</p>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% endfor %}
+
+    <div class="action-row">
+      <button type="submit" class="btn btn-warning">💾 수정 저장</button>
+      {# NF401: URL 네임스페이스 사용 #}
+      <a href="{% url 'books:detail' book.pk %}" class="btn btn-secondary">취소</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

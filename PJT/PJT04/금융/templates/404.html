@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-center" style="min-height: 70vh;">
+    <div class="card border-0 shadow-sm p-5 text-center" style="max-width: 800px; width: 100%; border-radius: 15px;">
+        <div class="card-body py-5">
+            <h1 class="fw-bold mb-4" style="font-size: 2.5rem; color: #333;">페이지를 찾을 수 없습니다</h1>
+            
+            <p class="text-muted mb-5 fs-5">
+                요청한 금융 자산이 없거나 잘못된 경로입니다.
+            </p>
+            
+            <a href="{% url 'community:index' %}" class="btn btn-primary px-5 py-2 fs-5" style="background-color: #009688; border: none; border-radius: 8px;">
+                자산 목록으로
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    body { background-color: #f8f9fa; }
+    .navbar-brand { color: #333 !important; font-weight: bold; }
+</style>
+{% endblock content %}

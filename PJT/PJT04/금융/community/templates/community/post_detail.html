@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-4 border-bottom pb-3">
+    <h2 class="fw-bold">{{ post.title }}</h2>
+    <div class="d-flex justify-content-between text-muted small">
+        <span>작성자: <strong>{{ post.author }}</strong></span>
+        <span>작성일: {{ post.created_at|date:"Y-m-d H:i" }}</span>
+    </div>
+</div>
+
+<div class="mb-5 p-3 min-vh-25" style="white-space: pre-wrap;">{{ post.content }} </div>
+
+<div class="d-flex justify-content-between pt-3 border-top">
+    <a href="{% url 'community:board' post.asset_id %}" class="btn btn-outline-primary">목록으로</a>
+    <div>
+        <a href="{% url 'community:post_update' post.asset_id post.id %}" class="btn btn-warning me-1">수정</a>
+        <form action="{% url 'community:post_delete' post.asset_id post.id %}" method="POST" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

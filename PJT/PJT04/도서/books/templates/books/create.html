@@ -1,0 +1,33 @@
+{% extends 'books/base.html' %}
+
+{% block title %}도서 등록{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1>✏️ 도서 등록</h1>
+  <p style="color:#888;margin-bottom:1.5rem;">저자명을 입력하면 AI가 자동으로 저자 정보를 생성합니다.</p>
+
+  {# POST 메서드와 {% csrf_token %}은 보안상 필수 #}
+  <form method="POST" action="{% url 'books:create' %}">
+    {% csrf_token %}
+
+    {% for field in form %}
+    <div class="form-group">
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {% if field.errors %}
+        {% for error in field.errors %}
+          <p style="color:#e74c3c;font-size:.88rem;margin-top:.3rem;">⚠ {{ error }}</p>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% endfor %}
+
+    <div class="action-row">
+      <button type="submit" class="btn btn-success">💾 등록 (AI 저자 정보 생성)</button>
+      {# NF401: URL 네임스페이스 사용 #}
+      <a href="{% url 'books:index' %}" class="btn btn-secondary">취소</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

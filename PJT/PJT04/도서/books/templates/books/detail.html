@@ -1,0 +1,46 @@
+{% extends 'books/base.html' %}
+
+{% block title %}{{ book.title }} - 상세{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1>📖 {{ book.title }}</h1>
+
+  <div class="info-label">저자</div>
+  <div class="info-value">{{ book.author }}</div>
+
+  <div class="info-label">도서 설명</div>
+  <div class="info-value">{{ book.description|linebreaks }}</div>
+
+  <div class="info-label">
+    저자 정보
+    <span class="ai-badge">🤖 AI 생성</span>
+  </div>
+  <div class="info-value">
+    {% if book.author_info %}
+      {{ book.author_info|linebreaks }}
+    {% else %}
+      <span style="color:#aaa;">저자 정보가 없습니다.</span>
+    {% endif %}
+  </div>
+
+  <div class="info-label">등록일</div>
+  <div class="info-value">{{ book.created_at|date:"Y년 m월 d일 H:i" }}</div>
+
+  <div class="info-label">최종 수정일</div>
+  <div class="info-value">{{ book.updated_at|date:"Y년 m월 d일 H:i" }}</div>
+
+  <div class="action-row">
+    {# NF401: URL 네임스페이스 사용 #}
+    <a href="{% url 'books:update' book.pk %}" class="btn btn-warning">✏️ 수정</a>
+
+    {# NF402: delete는 @require_POST → 반드시 form POST로 요청해야 함 #}
+    <form method="POST" action="{% url 'books:delete' book.pk %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">🗑 삭제</button>
+    </form>
+
+    <a href="{% url 'books:index' %}" class="btn btn-secondary">← 목록</a>
+  </div>
+</div>
+{% endblock %}

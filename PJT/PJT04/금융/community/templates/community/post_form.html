@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">{% if post %}글 수정{% else %}글쓰기{% endif %}</h2>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger py-3 mb-4 border-0 shadow-sm" role="alert" style="background-color: #fff5f5; color: #e03131; border-left: 5px solid #fa5252 !important;">
+            <div class="d-flex align-items-center">
+                <span class="me-2">⚠️</span>
+                <span>{{ message }}</span>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="id_title" class="form-label fw-bold">제목</label>
+        {{ form.title }}
+    </div>
+    <div class="mb-3">
+        <label for="id_author" class="form-label fw-bold">작성자 (선택)</label>
+        {{ form.author }}
+    </div>
+    <div class="mb-3">
+        <label for="id_content" class="form-label fw-bold">내용</label>
+        {{ form.content }}
+    </div>
+    <hr>
+    <div class="text-end">
+        <a href="javascript:history.back()" class="btn btn-outline-secondary me-2">취소</a>
+        <button type="submit" class="btn btn-success">{% if post %}수정 저장{% else %}등록{% endif %}</button>
+    </div>
+</form>
+{% endblock content %}

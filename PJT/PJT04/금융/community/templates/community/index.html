@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-5">
+    <h2 class="fw-bold mb-3">금융 자산 목록</h2>
+    <p class="text-muted">자산을 선택하면 해당 토론 게시판으로 이동합니다.</p>
+</div>
+
+<div class="row row-cols-1 g-4">
+    {% for asset in assets %}
+    <div class="col">
+        <a href="{% url 'community:board' asset.id %}" class="text-decoration-none">
+            <div class="card h-100 shadow-sm hover-shadow transition-all border-0 p-4">
+                <div class="card-body p-0">
+                    <h5 class="card-title fw-bold mb-3" style="color: #2D9CDB;">
+                        {{ asset.name }} ({{asset.category}})
+                    </h5>
+                    
+                    <p class="card-text text-secondary mb-3" style="line-height: 1.7;">
+                        {{ asset.description }}
+                    </p>
+                    
+                    <div class="text-muted small">
+                        위험도: <span class="fw-bold">{{ asset.risk_level }}</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    {% empty %}
+    <div class="col text-center py-5">
+        <p class="text-muted">등록된 자산 정보가 없습니다.</p>
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.08) !important;
+        border: 1px solid #2D9CDB !important;
+    }
+    .transition-all {
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .card {
+        border-radius: 15px;
+        border: 1px solid #f0f0f0 !important;
+    }
+</style>
+{% endblock content %}

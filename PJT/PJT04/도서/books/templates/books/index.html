@@ -1,0 +1,40 @@
+{% extends 'books/base.html' %}
+
+{% block title %}도서 목록{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1>📚 전체 도서 목록</h1>
+
+  {% if books %}
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>제목</th>
+        <th>저자</th>
+        <th>등록일</th>
+        <th>상세</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+      <tr>
+        <td>{{ book.pk }}</td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.created_at|date:"Y-m-d H:i" }}</td>
+        <td>
+          {# NF401: URL 네임스페이스 사용 #}
+          <a href="{% url 'books:detail' book.pk %}" class="btn btn-primary" style="padding:.3rem .8rem;font-size:.85rem;">보기</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% else %}
+  <p class="empty-msg">등록된 도서가 없습니다. <a href="{% url 'books:create' %}">첫 도서를 등록해보세요!</a></p>
+  {% endif %}
+</div>
+{% endblock %}

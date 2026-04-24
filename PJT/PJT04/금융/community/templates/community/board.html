@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'community:index' %}" class="text-decoration-none">자산 목록</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ asset.name }}</li>
+    </ol>
+</nav>
+
+<div class="mb-5">
+    <h2 class="fw-bold mb-3">{{ asset.name }} 토론 게시판</h2>
+    <div class="p-4 bg-light rounded-4 border-start border-4 border-primary">
+        <p class="text-secondary mb-0" style="line-height: 1.8;">
+            {{ asset.description }}
+        </p>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0">커뮤니티 글</h4>
+    <a href="{% url 'community:post_create' asset.id %}" class="btn btn-primary px-4 py-2 rounded-pill fw-bold">
+        글쓰기
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr class="text-center">
+                    <th class="py-3 text-start ps-4" style="width: 55%;">제목</th>
+                    <th class="py-3" style="width: 20%;">작성자</th>
+                    <th class="py-3" style="width: 25%;">작성일</th>
+                </tr>
+            </thead>
+            <tbody class="border-top-0">
+                {% for post in posts %}
+                <tr class="text-center align-middle" style="cursor: pointer;" onclick="location.href='{% url 'community:post_detail' asset.id post.id %}'">
+                    <td class="py-3 text-start ps-4">
+                        <span class="fw-medium text-dark">{{ post.title }}</span>
+                    </td>
+                    <td class="py-3 text-secondary">{{ post.author }}</td>
+                    <td class="py-3 text-muted small">{{ post.created_at|date:"Y-m-d H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center py-5 text-muted">
+                        아직 등록된 게시글이 없습니다. 첫 번째 주인공이 되어보세요!
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .table-hover tbody tr:hover {
+        background-color: #f8fbff;
+    }
+    .breadcrumb-item + .breadcrumb-item::before {
+        content: ">";
+    }
+</style>
+{% endblock content %}

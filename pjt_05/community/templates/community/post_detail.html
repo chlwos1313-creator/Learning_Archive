@@ -1,0 +1,70 @@
+{% extends "community/base.html" %}
+{% block title %}{{ post.title }} | 금융 자산 커뮤니티{% endblock %}
+{% block extra_css %}
+<style>
+  .article-header {
+    padding-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .article-header .page-title {
+    margin-bottom: 0.25rem;
+  }
+  .post-content {
+    white-space: pre-wrap;
+    line-height: 1.7;
+    font-size: 0.9375rem;
+  }
+  .post-actions {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .post-actions .form-inline {
+    display: inline;
+  }
+  .owner-only {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<p class="breadcrumb">
+  <a href="{% url 'community:asset_list' %}">자산 목록</a> &gt;
+  <a href="{% url 'community:board' asset.id %}">{{ asset.name }}</a> &gt; 글 보기
+</p>
+<article>
+  <header class="article-header">
+    <h1 class="page-title">{{ post.title }}</h1>
+    <p class="text-muted mb-0">
+      👤 {{ post.author.nickname|default:post.author.username|default:"(탈퇴한 사용자)" }}
+      · {{ post.created_at|date:"Y-m-d H:i" }}
+      {% if post.updated_at != post.created_at %}
+        <span style="margin-left:0.5rem;font-size:0.8rem;">(수정됨: {{ post.updated_at|date:"Y-m-d H:i" }})</span>
+      {% endif %}
+    </p>
+  </header>
+  <div class="post-content">{{ post.content }}</div>
+</article>
+
+<div class="post-actions btn-group">
+  {# 목록으로 버튼은 항상 표시 #}
+  <a href="{% url 'community:board' asset.id %}" class="btn btn-secondary">← 목록으로</a>
+
+  {# [F506] 수정/삭제는 작성자 본인에게만 표시 #}
+  {% if user.is_authenticated and post.author == user %}
+    <div class="owner-only">
+      <a href="{% url 'community:post_update' asset.id post.id %}" class="btn">✏️ 수정</a>
+      <form action="{% url 'community:post_delete' asset.id post.id %}" method="post" class="form-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+          🗑️ 삭제
+        </button>
+      </form>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

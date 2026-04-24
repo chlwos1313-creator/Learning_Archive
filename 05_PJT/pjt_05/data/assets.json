@@ -1,0 +1,44 @@
+[
+  {
+    "id": "stock-kospi",
+    "name": "KOSPI 주식",
+    "category": "주식",
+    "description": "한국거래소 유가증권시장에 상장된 종목들의 시가총액 기준 지수입니다. 우리나라 대표 주식 시장 지수로, 경제 상황을 파악하는 지표로 활용됩니다.",
+    "risk_level": "중"
+  },
+  {
+    "id": "stock-kosdaq",
+    "name": "KOSDAQ 주식",
+    "category": "주식",
+    "description": "한국거래소 코스닥시장에 상장된 종목들의 지수입니다. 벤처·중소기업·IT 기업 비중이 높아 변동성이 KOSPI보다 클 수 있습니다.",
+    "risk_level": "중상"
+  },
+  {
+    "id": "gold",
+    "name": "금",
+    "category": "원자재",
+    "description": "귀금속으로 인플레이션 헷지, 안전자산으로 널리 거래됩니다. ETF(금현물연계상품)나 금 선물로도 투자할 수 있습니다.",
+    "risk_level": "중하"
+  },
+  {
+    "id": "us-stock",
+    "name": "미국 주식 (S&P 500)",
+    "category": "주식",
+    "description": "미국 대표 500개 기업의 시가총액 가중 지수입니다. 글로벌 분산투자와 성장 기대를 위한 대표 인덱스입니다.",
+    "risk_level": "중"
+  },
+  {
+    "id": "bond-korea",
+    "name": "국채",
+    "category": "채권",
+    "description": "국가가 발행하는 채권으로, 만기까지 보유 시 원리금을 받을 수 있습니다. 상대적으로 안정적이지만 수익률은 낮은 편입니다.",
+    "risk_level": "하"
+  },
+  {
+    "id": "bitcoin",
+    "name": "비트코인",
+    "category": "암호자산",
+    "description": "대표적인 암호화폐로, 블록체인 기반 디지털 자산입니다. 변동성이 매우 크며 24시간 거래가 가능합니다.",
+    "risk_level": "상"
+  }
+]

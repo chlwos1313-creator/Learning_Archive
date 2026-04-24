@@ -1,0 +1,53 @@
+{% extends "community/base.html" %}
+{% block title %}금융 자산 목록 | 금융 자산 커뮤니티{% endblock %}
+{% block extra_css %}
+<style>
+  .asset-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .asset-list .asset-item {
+    margin: 0;
+  }
+  .asset-list .asset-link {
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+  .asset-list .asset-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-top: 0.5rem;
+    font-size: 0.8125rem;
+  }
+  .asset-list .asset-desc {
+    margin: 0.375rem 0 0 0;
+    line-height: 1.5;
+  }
+  .asset-list .empty {
+    padding: 2rem;
+    text-align: center;
+    color: var(--color-text-muted);
+  }
+</style>
+{% endblock %}
+{% block content %}
+<h1 class="page-title">금융 자산 목록</h1>
+<p class="text-muted mb-0">자산을 선택하면 해당 토론 게시판으로 이동합니다.</p>
+<ul class="asset-list mt-2">
+  {% for asset in assets %}
+  <li class="asset-item card-item">
+    <a href="{% url 'community:board' asset.id %}" class="asset-link">{{ asset.name }}</a>
+    <span class="text-muted">({{ asset.category }})</span>
+    <p class="text-muted asset-desc">{{ asset.description|truncatewords:30 }}</p>
+    <div class="asset-meta text-muted">위험도: {{ asset.risk_level }}</div>
+  </li>
+  {% empty %}
+  <li class="empty">등록된 금융 자산이 없습니다. data/assets.json을 확인하세요.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "community/base.html" %}
+{% block title %}페이지를 찾을 수 없음 | 금융 자산 커뮤니티{% endblock %}
+{% block extra_css %}
+<style>
+  .error-page {
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+  .error-page .page-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .error-page p {
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="error-page">
+  <h1 class="page-title">페이지를 찾을 수 없습니다</h1>
+  <p>요청한 금융 자산이 없거나 잘못된 경로입니다.</p>
+  <a href="{% url 'community:asset_list' %}" class="btn">자산 목록으로</a>
+</div>
+{% endblock %}

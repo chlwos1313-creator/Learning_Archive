@@ -1,0 +1,33 @@
+{
+    "fin_prdt_cd": "0100000108",
+    "kor_co_nm": "우리은행",
+    "fin_prdt_nm": "WON플러스예금",
+    "etc_note": "본 예금은 예금자보호법에 따라 보호됩니다.",
+    "join_deny": 1,
+    "join_member": "실명의 개인 및 개인사업자",
+    "join_way": "인터넷, 스마트폰, 전화(텔레뱅킹), 영업점",
+    "spcl_cnd": "없음",
+    "options": [
+        {
+            "fin_prdt_cd": "0100000108",
+            "intr_rate_type_nm": "단리",
+            "intr_rate": 3.5,
+            "intr_rate2": 3.8,
+            "save_trm": 6
+        },
+        {
+            "fin_prdt_cd": "0100000108",
+            "intr_rate_type_nm": "단리",
+            "intr_rate": 3.7,
+            "intr_rate2": 4.0,
+            "save_trm": 12
+        },
+        {
+            "fin_prdt_cd": "0100000108",
+            "intr_rate_type_nm": "단리",
+            "intr_rate": 3.6,
+            "intr_rate2": 3.9,
+            "save_trm": 24
+        }
+    ]
+}

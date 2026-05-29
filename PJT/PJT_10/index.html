@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>은행 찾기 | Kakao Map 기반 은행 검색 서비스</title>
+  <meta name="description" content="Kakao Map API를 활용한 은행 위치 검색 서비스. 지역과 은행을 선택하면 지도에 마커로 표시하고 멀티캠퍼스에서의 길찾기도 제공합니다." />
+  <!-- NF1003: CSS 분리 -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- F1001: API 키 로드 -->
+  <script src="apikey.js"></script>
+</head>
+<body>
+
+  <!-- ── 헤더 ── -->
+  <header class="header" role="banner">
+    <span class="header-icon" aria-hidden="true">🏦</span>
+    <h1 class="header-title">은행 찾기</h1>
+    <span class="header-subtitle">Kakao Map 기반 은행 검색 서비스</span>
+  </header>
+
+  <!-- ── 메인 레이아웃 ── -->
+  <main class="main-container" role="main">
+
+    <!-- ── 사이드바: 검색 패널 ── -->
+    <aside class="sidebar" aria-label="검색 패널">
+
+      <!-- 검색 조건 섹션 -->
+      <section class="sidebar-section" aria-labelledby="search-section-title">
+        <h2 class="section-title" id="search-section-title">검색 조건</h2>
+
+        <div class="select-group">
+          <!-- F1003: 광역시/도 드롭다운 -->
+          <div>
+            <label class="select-label" for="city-select">🗺️ 광역시 / 도</label>
+            <div class="custom-select">
+              <select id="city-select" aria-label="광역시/도 선택">
+                <option value="">-- 광역시/도 선택 --</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- F1003: 시/군/구 드롭다운 -->
+          <div>
+            <label class="select-label" for="district-select">📍 시 / 군 / 구</label>
+            <div class="custom-select">
+              <select id="district-select" aria-label="시/군/구 선택" disabled>
+                <option value="">-- 시/군/구 선택 --</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- F1003: 은행명 드롭다운 -->
+          <div>
+            <label class="select-label" for="bank-select">🏛️ 은행 선택</label>
+            <div class="custom-select">
+              <select id="bank-select" aria-label="은행 선택">
+                <option value="">-- 은행 선택 --</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 검색 버튼 -->
+          <button id="search-btn" class="btn btn-primary" type="button" aria-label="은행 검색">
+            🔍 은행 검색
+          </button>
+
+          <!-- F1011: 길찾기 버튼 -->
+          <button id="route-btn" class="btn btn-route" type="button" disabled aria-label="멀티캠퍼스에서 길찾기">
+            🚗 멀티캠퍼스에서 길찾기
+          </button>
+        </div>
+      </section>
+
+      <!-- 출발지 안내 -->
+      <section class="sidebar-section" style="padding: 14px 20px;">
+        <div style="
+          background: linear-gradient(135deg, #EDF2FF, #E7F5FF);
+          border: 1px solid #BAC8FF;
+          border-radius: 8px;
+          padding: 12px 14px;
+          font-size: 12px;
+          color: #3B5BDB;
+          line-height: 1.7;
+        ">
+          <div style="font-weight:700;margin-bottom:4px;">📌 출발지 안내</div>
+          <div>멀티캠퍼스 강남 캠퍼스</div>
+          <div style="color:#748FFC;font-size:11px;">서울 강남구 테헤란로 212</div>
+        </div>
+      </section>
+
+      <!-- 결과 헤더 -->
+      <div id="result-header" class="result-header"></div>
+
+      <!-- 결과 리스트 -->
+      <div id="result-list" class="result-list" role="list" aria-label="검색 결과 목록">
+        <!-- 초기 빈 상태 -->
+        <div class="empty-state">
+          <div class="empty-icon">🔍</div>
+          <div class="empty-text">위 조건을 선택하고<br>검색 버튼을 눌러보세요.</div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ── 지도 영역 ── -->
+    <section class="map-wrapper" aria-label="지도">
+      <!-- F1002: 카카오 지도 -->
+      <div id="map" role="application" aria-label="카카오 지도"></div>
+
+      <!-- 로딩 오버레이 -->
+      <div id="loading" class="loading-overlay" style="display:none;" role="status" aria-live="polite">
+        <div class="spinner" aria-label="로딩 중"></div>
+      </div>
+
+      <!-- 지도 정보 배지 -->
+      <div class="map-badge" aria-label="지도 안내">
+        ⭐ 별 마커: 멀티캠퍼스 강남
+      </div>
+
+      <!-- F1011: 길찾기 결과 패널 -->
+      <div id="route-panel" class="route-panel" role="complementary" aria-label="길찾기 결과">
+        <div class="route-panel-header">
+          <span class="route-panel-title">
+            🚗 길찾기 결과
+          </span>
+          <button id="route-close" class="route-panel-close" aria-label="길찾기 패널 닫기">✕</button>
+        </div>
+
+        <div class="route-dest" style="margin-bottom:12px;font-size:13px;color:#5A6478;">
+          <span id="route-origin-name" style="font-weight:600;color:#3B5BDB;"></span>
+          <span style="color:#9BA3B5;">→</span>
+          <span id="route-dest-name" style="font-weight:600;color:#F03E3E;"></span>
+        </div>
+
+        <div class="route-info-grid">
+          <div class="route-info-card">
+            <div class="route-info-label">⏱️ 예상 시간</div>
+            <div class="route-info-value">
+              <span id="route-duration">-</span>
+              <span class="route-info-unit">분</span>
+            </div>
+          </div>
+          <div class="route-info-card">
+            <div class="route-info-label">📏 거리</div>
+            <div class="route-info-value">
+              <span id="route-distance">-</span>
+              <span class="route-info-unit">km</span>
+            </div>
+          </div>
+          <div class="route-info-card">
+            <div class="route-info-label">🚕 택시 요금</div>
+            <div class="route-info-value">
+              <span id="route-taxi">-</span>
+              <span class="route-info-unit">원</span>
+            </div>
+          </div>
+          <div class="route-info-card">
+            <div class="route-info-label">🛣️ 통행 요금</div>
+            <div class="route-info-value">
+              <span id="route-toll">-</span>
+              <span class="route-info-unit">원</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 토스트 알림 컨테이너 -->
+  <div id="toast-container" class="toast-container" aria-live="polite" role="status"></div>
+
+  <!-- NF1003: JS 분리 로드 -->
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  
+  <!-- F1001: Kakao Map SDK 동적 로드 -->
+  <script>
+    (function () {
+      // 1. apikey.js가 먼저 잘 로드되어 KAKAO_MAP_KEY가 존재하는지 체크
+      if (typeof KAKAO_MAP_KEY === 'undefined' || !KAKAO_MAP_KEY) {
+        console.error('KAKAO_MAP_KEY가 정의되지 않았습니다. apikey.js 파일을 확인해주세요.');
+        alert('API Key를 찾을 수 없습니다. apikey.js 파일을 확인해주세요.');
+        return;
+      }
+
+      // 2. 카카오 지도 SDK 로드 스크립트 생성
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + KAKAO_MAP_KEY + '&libraries=services&autoload=false';
+      
+      s.onerror = function (err) {
+        console.error('Kakao Map SDK 로드 에러 상세:', err);
+        alert(
+          '🚨 [Kakao 지도 로드 실패] 아래 원인을 확인해주세요!\n\n' +
+          '1. [중요] Kakao Developers 플랫폼 설정:\n' +
+          '   - 설정 -> 플랫폼 -> Web 플랫폼에 현재 주소 등록 필요\n' +
+          '   - 예: http://127.0.0.1:5500 또는 http://localhost:5500\n\n' +
+          '2. API Key 오류:\n' +
+          '   - 제공해주신 JavaScript 키가 올바른지 확인해주세요.\n\n' +
+          '3. 네트워크/보안망 차단:\n' +
+          '   - 사내 내부망 또는 방화벽에 의해 dapi.kakao.com이 차단되었는지 확인해주세요.'
+        );
+      };
+      
+      s.onload = function () {
+        if (typeof kakao !== 'undefined' && kakao.maps) {
+          kakao.maps.load(function () {
+            // main.js의 initApp 호출
+            if (typeof initApp === 'function') {
+              initApp();
+            } else {
+              console.error('initApp 함수를 찾을 수 없습니다.');
+            }
+          });
+        } else {
+          console.error('kakao 객체가 로드되지 않았습니다.');
+        }
+      };
+      
+      document.head.appendChild(s);
+    })();
+  </script>
+
+</body>
+</html>
